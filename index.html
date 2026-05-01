@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#FF8C42">
+    <title>PT Kembang Cipta Marga</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PT Kembang Cipta Marga</h1>
+            <p>Sistem Pengajuan Pinjaman</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="form">Form</button>
+            <button class="tab-btn" data-tab="hutang">Cek Total</button>
+            <button class="tab-btn" data-tab="history">History</button>
+            <button class="tab-btn" data-tab="bayar">Bayar</button>
+        </div>
+
+        <!-- Panel Form -->
+        <div id="formPanel" class="panel active">
+            <div class="card">
+                <div class="instruksi-card">
+                    <div class="instruksi-header" onclick="toggleInstruksi()">
+                        <span>Cara Dapatkan ID Telegram</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="instruksi-content" id="instruksiContent">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Start <strong>@keskesaja_bot</strong></div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Buka <strong>@userinfobot</strong> → START</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Copy <strong>ID Telegram</strong> yang dikirim</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-text">Paste di form di bawah</div>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://t.me/keskesaja_bot" target="_blank" class="btn-bot">Start @keskesaja_bot</a>
+                            <a href="https://t.me/userinfobot" target="_blank" class="btn-bot-outline">Buka @userinfobot</a>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="myForm">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap <span>*</span></label>
+                        <input type="text" name="nama" placeholder="Nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Layanan <span>*</span></label>
+                        <select name="paket" id="paketSelect" required>
+                            <option value="" disabled selected>Memuat data...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Keterangan <span>*</span></label>
+                        <textarea name="keterangan" placeholder="Jelaskan keperluan" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nominal <span>*</span></label>
+                        <input type="text" name="nominal" id="nominalInput" placeholder="Masukkan nominal" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lampiran</label>
+                        <div class="file-upload" id="fileUploadDiv">
+                            <p>Klik untuk upload file</p>
+                            <div class="file-name" id="fileName"></div>
+                        </div>
+                        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.docx" style="display:none">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ID Telegram <span>*</span></label>
+                        <input type="text" name="chat_id" placeholder="Masukkan ID Telegram" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Kirim</button>
+                </form>
+                <div id="result"></div>
+            </div>
+        </div>
+
+        <!-- Panel Cek Hutang -->
+        <div id="hutangPanel" class="panel">
+            <div class="card">
+                <div class="form-group">
+                    <label class="form-label">ID Telegram <span>*</span></label>
+                    <input type="text" id="hutangChatId" placeholder="Masukkan ID Telegram">
+                </div>
+                <button class="btn-track" id="cekHutangBtn">Cek Total Hutang</button>
+                <div id="hutangResult"><div class="empty-data">Masukkan ID Telegram</div></div>
+            </div>
+        </div>
+
+        <!-- Panel History -->
+        <div id="historyPanel" class="panel">
+            <div class="card">
+                <div class="form-group">
+                    <label class="form-label">ID Telegram <span>*</span></label>
+                    <input type="text" id="historyChatId" placeholder="Masukkan ID Telegram">
+                </div>
+                <button class="btn-track" id="cekHistoryBtn">Cek Riwayat</button>
+                <div id="historyResult"><div class="empty-data">Masukkan ID Telegram</div></div>
+            </div>
+        </div>
+
+        <!-- Panel Bayar -->
+        <div id="bayarPanel" class="panel">
+            <div class="card">
+                <div class="rekening-card">
+                    <div class="rekening-title">
+                        <i class="fas fa-university"></i>
+                        <span>Informasi Rekening Pembayaran</span>
+                    </div>
+                    <div class="bank-name">Bank Mandiri</div>
+                    <div class="account-number">1130014862431</div>
+                    <div class="account-name">Yopiansah</div>
+                    <div class="rekening-note">
+                        <i class="fas fa-info-circle"></i>
+                        Transfer sesuai nominal tagihan
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ID Telegram <span>*</span></label>
+                    <input type="text" id="bayarChatId" placeholder="Masukkan ID Telegram">
+                </div>
+                <button class="btn-track" id="cekBayarBtn">Cek Hutang Saya</button>
+                
+                <div id="bayarResult">
+                    <div class="empty-data">Masukkan ID Telegram untuk lihat hutang</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by <a href="https://herokomputer.cloud" target="_blank">Herokomputer.cloud</a></p>
+        </div>
+    </div>
+
+    <!-- Modal Upload Bukti -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Bukti Transfer</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">ID Tagihan</label>
+                    <input type="text" id="modalId" readonly style="background:#f0f0f0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nominal</label>
+                    <input type="text" id="modalNominal" readonly style="background:#f0f0f0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Rekening Tujuan</label>
+                    <div class="rekening-mini">
+                        Mandiri: 1130014862431 Yopiansah
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Upload Bukti Transfer <span>*</span></label>
+                    <div class="file-upload" id="modalUploadDiv">
+                        <p>Klik untuk upload bukti transfer (foto screenshot)</p>
+                        <div class="file-name" id="modalFileName"></div>
+                    </div>
+                    <input type="file" id="modalFileInput" accept="image/*,.pdf" style="display:none">
+                </div>
+                <div id="modalMessage"></div>
+                <button class="btn-submit" id="submitBayarBtn">Kirim Bukti Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
